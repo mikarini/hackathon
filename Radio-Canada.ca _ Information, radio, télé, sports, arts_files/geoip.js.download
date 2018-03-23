@@ -1,0 +1,13 @@
+function geoip_country_code() { return "CA"; }
+function geoip_country_name() { return "Canada"; }
+function geoip_city() { return "Montréal"; }
+function geoip_region() { return "QC"; }
+function geoip_region_name() { return "Quebec"; }
+function geoip_latitude() { return "45.535400390625"; }
+function geoip_longitude() { return "-73.6061019897461"; }
+function geoip_postal_code() { return "H2S"; }
+function geoip_metro_code() { return "0"; }
+function geoip_area_code() { return "0"; }
+function geoip_regions_ventesweb() { return ["Ile-de-Montreal","Grand-Montreal"]; }
+function geoip_region_info() { return {televisionRegionId:8,radioRegionId:8,espaceMusiqueRegionId:8,editionRegionId:8,cityCode:"YUL",cbcMusicRegionId:0,cbcMusicStationId:99,espaceMusiqueClassiqueRegionId:111}; }
+function geoip_get_eastern_time() { return "0000"; }

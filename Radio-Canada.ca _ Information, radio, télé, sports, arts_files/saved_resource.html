@@ -1,0 +1,795 @@
+
+<!-- saved from url=(0027)http://ici.radio-canada.ca/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>var inDapIF=true;</script><script src="./jquery.min.js.download"></script><script src="./jquery-ui.min.js.download"></script></head><body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"><script>var viewReq = new Array();function vu(u) {var i=new Image();i.src=u.replace("&amp;","&");viewReq.push(i);}</script><script>vu("https://securepubads.g.doubleclick.net/pcs/view?xai\u003dAKAOjsuiZQLqhBS2GUSkejABIUUxolam4ID2p3FnXNhXLeLqyrPAYmAkScnGBD46-PKNTuYm8hQ9UukdnNzhtEYTaiRkTxs1_i27e5WSq69y4OB3iN44a57NlVNmCOjlmduhkcFwZ8TOiG--LXBXjM6q0DUN-B1Rg2akFr47LLlUjiIO4u3l4Up0o6wK6e6Jlo_7UzhonHhgWqSTN4lLwjKisVTaSPhCFpdGmSs5a-v7ZGLGRLpgA_bN9veloSbfQAaZLGSJQUDdEcKEDA\u0026sig\u003dCg0ArKJSzGjmzC1Y7cR0EAE\u0026urlfix\u003d1\u0026adurl\u003d")</script>
+
+
+
+	
+ 
+
+	<style>
+@font-face{
+    font-family:VideoJS;
+    src:url(https://vjs.zencdn.net/f/3/vjs.eot);
+    src:url(https://vjs.zencdn.net/f/3/vjs.eot?#iefix) format('embedded-opentype'),url(https://vjs.zencdn.net/f/3/vjs.woff) format('woff'),url(https://vjs.zencdn.net/f/3/vjs.ttf) format('truetype'),url(https://vjs.zencdn.net/f/3/vjs.svg#icomoon) format('svg');
+    font-weight:400;
+    font-style:normal;
+}
+
+/*
+#video-frame {
+    float: left;
+    left: 0px;
+    top: 41px;
+    overflow: hidden;
+    width: 300px; 
+    height: 250px;
+    position: absolute;
+    background-color: black;
+    display: block;
+    z-index: 4;
+}
+*/
+
+#video-frame {
+    float: left;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
+    width: 300px; 
+    height: 250px;
+    position: absolute;
+    background-color: black;
+    display: block;
+    z-index: 4;
+}
+
+#video-frame video{
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#show-play-button {
+    left: 50%;
+    top: 50%;
+    /* font-size: 3em; */
+    z-index: 7;
+    position: absolute;
+    width: 30%;
+    height: 30%;
+}
+
+#play-button {
+      left: 50%;
+      top: 50%;
+      /* font-size: 3em; */
+      z-index: 6;
+      position: absolute;
+      width: 30%;
+      height: 30%;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      opacity: 0.9;
+      color: white;
+      font-family: VideoJS;
+      text-shadow: 0 0 5px black;
+
+      /*Disable highlight*/
+      -webkit-user-select: none; /* Chrome/Safari */        
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+ */
+}
+
+#mute-button {
+      left: 3%;
+      top: 0%;
+      z-index: 6;
+      position: absolute;
+      width: 10%;
+      height: 100%;
+      text-align: justify;
+      vertical-align: middle;
+      cursor: pointer;
+      opacity: 0.7;
+      color: white;
+      font-family: VideoJS;
+      text-shadow: 0 0 5px black;
+
+      /*Disable highlight*/
+      -webkit-user-select: none; /* Chrome/Safari */        
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+ */
+}
+/*
+//Maybe do that template if necessary (enough similarities between all control buttons)
+.control-button {
+
+}
+*/
+
+/* Make things hideable */
+
+.hideable {
+    display: none;
+}
+
+/*TO DO: set empty pixel display to none, and change size to 0px by 0px */
+.empty-pixel {
+    display: block;
+    width: 0px;
+    height: 0px;
+}
+
+
+/* Nav bar overlapping the video*/
+#nav-bar {
+      position: absolute;
+      left: 0%;
+      top: 0%;
+      
+    
+      z-index: 5;
+      
+      width: 100%;
+      height: 10%;
+      text-align: left;
+      vertical-align: middle;
+      cursor: pointer;
+      opacity: 0.6;
+      color: black;
+      background: linear-gradient(black 50%, gray);
+      display: none;
+}
+/*Nav bar aside the video*/
+#aside-nav-bar {
+    height: 20%; 
+    z-index: 5;
+    position: absolute;
+    left: 0; 
+    top: 0;
+    text-align: center;
+    vertical-align: middle;
+    background-color: black;
+    color: white;
+    display: none;
+}
+
+#know-more {
+    color: white;
+    /*
+    left: 20%;
+    top: 5%;
+    */
+    z-index: 6;
+    /*
+    position: absolute;
+    
+    width: 40%;
+    height: 15%;
+    */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    float: right;
+    margin-right: 5%;
+}
+
+#know-more:hover {
+    text-decoration: underline;
+}
+
+        </style>
+
+	<link rel="stylesheet" type="text/css" href="./jquery-ui.css">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap-theme.min.css">
+	<!-- <script src="javascript.js"></script> -->
+	<script>
+
+    var beta;
+    if (window.parent.location.href.indexOf('beta.radio-canada.ca') === -1){
+        var beta = false;
+    }
+    else {
+        var beta = true;
+    }
+
+		//function loadVideoPlayer (parentNode, width, height, top_pos, left, startTrackingPixel, middleTrackingTag, endTrackingPixel, isDisplayFirstframeOnending, clickUrl, videoFirstFrameImage, videoUrl, isClickBannerForTouch, isPreviewMode) {
+        //Handle for the whole video player
+        window.videoPlayer = {
+                  redirectToClickthroughUrl: function(e) {
+		       parent.window.open(this.clickUrl);
+                       //Make sure click on video player does not bubble to the background
+                       e.stopPropagation();
+		       $( "#video-frame video" ).get(0).pause();
+                  },
+                  isLoaded: function () {
+                      return ($( "#video-frame video" ) !== null);
+                  },
+                  load: function (parentNode, videoPlayerConfiguration) {
+
+                    var width = videoPlayerConfiguration.width;
+                    var height = videoPlayerConfiguration.height;
+                    var top_pos = videoPlayerConfiguration.topPos;
+                    var left = videoPlayerConfiguration.left;
+                    var startTrackingPixel = videoPlayerConfiguration.startTrackingPixel;
+                    var middleTrackingTag = videoPlayerConfiguration.middleTrackingTag;
+                    var endTrackingPixel = videoPlayerConfiguration.endTrackingPixel;
+                    var isDisplayFirstframeOnending = videoPlayerConfiguration.isDisplayFirstframeOnending;
+                    //var clickUrl = videoPlayerConfiguration.clickUrl;
+                    this.clickUrl = videoPlayerConfiguration.clickUrl;
+                    var videoFirstFrameImage = videoPlayerConfiguration.videoFirstFrameImage;
+                    var videoUrl = videoPlayerConfiguration.videoUrl;
+                    var isClickBannerForTouch = videoPlayerConfiguration.isClickBannerForTouch;
+                    var isPreviewMode = videoPlayerConfiguration.isPreviewMode;
+
+                    var isTouchDevice = 'ontouchstart' in window;
+                    var autoPlayProp = 'autoplay';
+
+                    //We make sure video does not autoplay on touch devices
+                    if(isTouchDevice) {
+                        var autoPlayProp = '';
+                    }
+
+		    var htmlCode =
+		      [ '<div id="video-frame" style="">',
+		        '<video id="video1" poster="' + videoFirstFrameImage + '" preload="auto" ' + autoPlayProp + ' muted>',
+		        '<source type="video/mp4"' + ' src="' + videoUrl + '">',
+		        '</video>',
+		        '<div id="show-play-button"></div><div id="play-button">&#xe001;</div>',
+		        '<div id="nav-bar">',
+		        '<div id="know-more">EN SAVOIR PLUS</div>',
+		        '</div>',
+		        '<div id="mute-button">&#xe003;</div>',
+		        //'<div id="aside-nav-bar">EN SAVOIR PLUS</div>',
+		        '</div>'
+
+		      ] .join('');
+
+
+		    //Load external javascript librairies synchronously
+		    ["https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js",
+		    "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"].forEach(function (scriptSource) {
+		        var scriptTag = document.createElement('script');
+		        scriptTag.src = scriptSource;
+		        scriptTag.async = false;
+		        document.head.appendChild(scriptTag);
+		    });
+		        
+
+
+		    $( parentNode ).append($( htmlCode ));
+		    if(isClickBannerForTouch) {
+		        $( parentNode ).append('<div id="aside-nav-bar">EN SAVOIR PLUS</div>')
+		    }
+
+
+		    //***Put Some Code Here******************
+		    var isReplay = false;
+		    var isMiddleTracked = false;
+		    
+		    resizeVideoFrame();
+		    initVideoControls();
+		    refreshVideoControls();
+		    refreshExternalObjects();
+
+		    function resizeVideoFrame(){
+		        $( "#video-frame" ).css({"width": width, "height": height, "top": top_pos, "left": left});
+		    }
+
+		    function loadEmptyPixel(pixelUrl){
+                        if (pixelUrl !== "") {
+                            $( "body" ).append('<img src=' + pixelUrl + ' class="empty-pixel">');
+                        }
+		    }
+
+		    function resetVideo() {
+		        if($( "#play-button" ).hasClass("hideable")) {
+		            $( "#play-button" ).removeClass("hideable");
+		        }
+		        $( "#play-button" ).html("&#xe001");
+		        var video1 = $( "#video1" ).get(0);
+		        video1.autoplay = false;
+		        if(isDisplayFirstframeOnending == true) {
+		            video1.load();    
+		        }
+
+		    }
+
+		    function initVideoControls() {
+		        
+		        var togglePlayStop = function(){
+		            var isPaused = $( "#video-frame video" ).prop("paused");
+
+		            if(isPaused){
+		                $( "#video1" ).get(0).play();
+		            }else{
+		                $( "#video1" ).get(0).pause();
+		            }
+		        }
+
+		        //Nav menu aside video frame
+		        if (isTouchDevice){
+		            //Touch to control the video
+		            $( "#video-frame" ).on("click", togglePlayStop);
+		        }
+		        
+
+		        $( "#video-frame video" ).on("play", function(){
+		            $( "#play-button" ).html("&#xe002");
+		            if(!$( "#play-button" ).hasClass("hideable")){
+		                    $( "#play-button" ).addClass("hideable");
+		            }
+		        });
+		        $( "#video-frame video" ).on("pause", function(){
+		            $( "#play-button" ).html("&#xe001");
+		            //Reshow play button if touch device (never show pause)
+		            if(isTouchDevice) {
+		                if($( "#play-button" ).hasClass("hideable")){
+		                        $( "#play-button" ).removeClass("hideable");
+		                }
+		            }
+		        });
+
+		        //Layer over play button to display/hide it
+		        $( "#show-play-button" ).on("click", function(e){
+		            e.stopPropagation();
+		            togglePlayStop();
+		        });
+
+		        
+		        if(!isTouchDevice){
+		            $( parentNode ).on("click", function (e){ window.videoPlayer.redirectToClickthroughUrl(e); });
+		        }
+		        
+
+		        //At the end the video player should be on play
+		        $( "#video1" ).on("ended", function(){
+		            resetVideo();
+		        });
+
+		        $( "#play-button" ).removeClass("hideable");
+
+		        function mute() {
+		           $( "#video1" ).prop('muted', true);
+		           $( "#mute-button" ).html('&#xe003;');
+		        }
+
+		        function unmute() {
+		            $( "#video1" ).prop('muted', false);
+		            $( "#mute-button" ).html('&#xe006;');
+		        }
+
+		        function showPlaybtn() {
+		            var videoFrame = $( "#video-frame" );
+		            if(videoFrame.hasClass("hideable")) {
+		                videoFrame.css("display", "block");
+		            }
+		        }
+
+		        function hidePlaybtn() {
+		            var videoFrame = $( "#video-frame" );
+		            if(videoFrame.hasClass("hideable")) {
+		                videoFrame.css("display", "none");
+		            }
+		        }
+
+		        if(!isTouchDevice) {
+		            $( "#video-frame" ).hover(unmute, mute);
+		            
+		            $( "#show-play-button" ).mouseenter(function(){
+		                if(!isTouchDevice) {
+		                    $( "#play-button" ).css("display", "block");
+		                }
+		            });
+		            $( "#show-play-button" ).mouseleave(function(){
+		                if(!isTouchDevice) {
+		                    $( "#play-button" ).css("display", "none");
+		                }
+		            });
+		        }
+
+		        //This is where we track video's progress and load pixels on different durations
+		        $( "#video1" ).on('timeupdate', trackVideoProgress);
+
+		        //This is where we load our pixel that is loaded on video's end
+		        $( "#video1" ).on("ended", function(){
+		            if(!isReplay){
+		                isReplay = true;
+		                loadEmptyPixel(endTrackingPixel);
+		            }
+		        });
+		        //This is where we load our pixel when video player is ready to play (loaded on start
+		        $( "#video1" ).on("canplay", loadEmptyPixel(startTrackingPixel));
+
+
+		    }
+
+		    //Resize video controls related to the video frame
+		    function refreshVideoControls(){
+		        //Play/Pause
+		        $( "#play-button" ).css("margin-top", -Math.floor($( "#play-button" ).height()/2));
+		        $( "#play-button" ).css("margin-left", -Math.floor($( "#play-button" ).width()/2));
+		        $( "#play-button" ).css("font-size", Math.floor($( "#video-frame" ).width()/8));
+
+		        //Zone to display/hide play button
+		        $( "#show-play-button" ).css("margin-top", -Math.floor($( "#show-play-button" ).height()/2));
+		        $( "#show-play-button" ).css("margin-left", -Math.floor($( "#show-play-button" ).width()/2));
+
+		        //Mute
+		        $( "#mute-button" ).css("font-size", Math.floor($( "#nav-bar" ).height()*0.9));
+
+		        //Know more label
+                        //$( "#know-more" ).width($( "#video-frame" ).width());
+		        //$( "#know-more" ).css("font-size", Math.floor($( "#nav-bar" ).height()*0.7));
+
+		    }
+
+		     var togglePlayStop = function(){
+		           var isPaused = $( "#video-frame video" ).prop("paused");
+
+		           if(isPaused){
+		               $( "#video1" ).get(0).play();
+		           }else{
+		               $( "#video1" ).get(0).pause();
+		           }
+		    }
+
+		    function refreshExternalObjects(){
+		        var $videoFrame = $( "#video-frame" );
+
+                        if (isTouchDevice){
+		            var asideNavBarTop = $videoFrame.height() + $videoFrame.position().top;
+
+		            $( "#aside-nav-bar" ).css("top", asideNavBarTop);
+		            var asideNavbarHeight = $videoFrame.height() * 0.2;
+		            var asideNavbarMaxHeight = $( parentNode ).height() - asideNavBarTop;
+
+		            asideNavbarHeight = asideNavbarHeight > asideNavbarMaxHeight ? asideNavbarMaxHeight: asideNavbarHeight;
+
+                            $( "#aside-nav-bar" ).width($( "#video-frame" ).width());
+		            $( "#aside-nav-bar" ).css("height", asideNavbarHeight);
+		            $( "#aside-nav-bar" ).css("font-size", $( "#aside-nav-bar" ).height() * 0.8);
+
+		            $( "#aside-nav-bar" ).on("click",  function (e){ window.videoPlayer.redirectToClickthroughUrl(e); });
+
+                            $( "#video-frame" ).on("click", togglePlayStop);
+                            $( "#aside-nav-bar" ).show();
+		        }
+		        
+		    }
+
+		    function trackVideoProgress(){
+		        var videoFrame1 = $( "#video1" ).get(0);
+
+		        var progressPercentage = Math.floor(videoFrame1.currentTime/videoFrame1.duration * 100);
+		        if (progressPercentage > 50 && !isMiddleTracked) {
+		            loadEmptyPixel(middleTrackingTag);
+		            isMiddleTracked = true;
+
+		        }
+		        //TO DO: Maybe add a progress bar on top of video-frame1 if needed
+		    }
+
+		    if(isPreviewMode) {
+		        debugVideoFrame(parentNode, $( "#video-frame" ));
+		    }
+		    function debugVideoFrame(parentNode, videoFrame){
+
+		            var debugCode =
+		              [ '<p>',
+		                '<label>Video Top Position</label>',
+		                '<input type="text" name="top" value="0">',
+		                '<label>Video Left Position</label>',
+		                '<input type="text" name="left" value="0">',
+		                '</p>',
+		                '<p>',
+		                '<label>Video Width</label>',
+		                '<input type="text" name="width"></input>',
+		                '<label>Video Height</label>',
+		                '<input type="text" name="height"></input>',
+		                '</p>',
+		                '<p>',
+		                '<div id="slider"></div>',
+		                '<button id="reset">reset</button>',
+		                '</p>'
+		              ] .join('');
+
+		            var $debugNode = $( '<div/>', {"id": "debug-video"} );
+		            $debugNode.html( debugCode );
+		            $( "body" ).append( $debugNode );
+
+		            var $videoFrame = $( videoFrame );
+		            var $debugVideo = $( "#debug-video" );
+
+		            var videoHeight = $videoFrame.height();
+		            var videoWidth = $videoFrame.width();
+		            var videoTop = $videoFrame.position().top;
+		            var videoLeft = $videoFrame.position().left;
+
+		            var aspectRatio = 16/9;
+
+		            //Set and refresh customization display
+		            function resetVideoPosition(e){
+		                $videoFrame.css("left", videoLeft);
+		                $videoFrame.css("top",  videoTop);
+		                $videoFrame.width(videoWidth);
+		                $videoFrame.height(videoHeight);
+		                $('#slider').slider('value', resizeCursor);
+		            }
+
+		            function refreshDispValues(){
+		                //Size
+		                $( "input[name='width']", $debugVideo).val( $videoFrame.width() );
+		                $( "input[name='height']", $debugVideo).val( $videoFrame.height() );
+
+		                //Position
+		                var pos = $videoFrame.position();
+		                $("input[name='left']", $debugVideo).val(pos.left);
+		                $("input[name='top']", $debugVideo).val(pos.top);
+		            }
+
+		            function keepVideoInBounds(){
+		                // Show dropped position.
+		                var stopPos = $videoFrame.position();
+
+		                var leftLimit = $( parentNode ).width() - $videoFrame.width();
+		                var topLimit =  $( parentNode ).height() - $videoFrame.height();
+
+		                if(stopPos.left < 0){
+		                    $videoFrame.css("left", 0);
+		                }else if(stopPos.left > leftLimit){
+		                    $videoFrame.css("left", leftLimit);
+		                }
+
+		                if(stopPos.top < 0){
+		                    $videoFrame.css("top", 0);
+		                }else if(stopPos.top > topLimit){
+		                    $videoFrame.css("top", topLimit);
+		                }
+		            }
+
+		            //Refresh display of video size and position data
+		            refreshDispValuesInterval = setInterval(refreshDispValues, 200);
+		            //Keep video within bounds of the background banner
+		            keepVideoInBoundsInterval = setInterval(keepVideoInBounds, 200);
+		            //Refresh the video controls to fit new video frame sizes
+		            refreshVideoControlsInterval = setInterval(refreshVideoControls, 200);   
+		            //Refresh external objects
+		            refreshExternalObjectsInterval = setInterval(refreshExternalObjects, 200);
+
+
+		            $videoFrame.draggable();
+		            
+		            $( "button#reset" ).click(resetVideoPosition);
+
+		            //Set resize slider using lower banner size dimension (width or height)
+		            var billboardHeight = $( parentNode ).height();
+		            var billboardWidth = $( parentNode ).width();
+		            var resizeVideo;
+		            var maxSize;
+		            
+		            if(billboardWidth <= billboardHeight){
+		                maxSize = billboardWidth;
+		                resizeCursor = videoWidth;
+		                resizeVideo = function( event, ui ){
+		                    var width = ui.value;
+		                    $videoFrame.width(width);
+		                    var height = Math.floor(width * 1/(aspectRatio));
+		                    $videoFrame.height(height);
+		                }
+		            }else{
+		                maxSize = billboardHeight;
+		                resizeCursor = videoHeight;
+		                resizeVideo = function( event, ui ){
+		                    var height = ui.value;
+		                    $videoFrame.height(height);
+		                    var width = Math.floor(height * aspectRatio);
+		                    $videoFrame.width(width);
+		                }
+		            }
+
+		            $( "#slider" ).slider(
+		            {
+		                value: resizeCursor,
+		                min: 0,
+		                max: maxSize,
+		                step: 1,
+		                slide: resizeVideo
+		            }
+		            );
+		            //$( "#slider" ).width(500);
+
+		            //Image fine grained position adjustement using keyboard
+		            $("body").on("keydown", function (e) {
+		                /*37 left 39 left 38 top 40 down*/
+		                switch (e.which) {
+		                    case 37:
+		                        $(videoFrame).css("left", parseInt($(videoFrame).css("left")) - 1);
+		                        //$("input[name='left']").val(parseInt($(videoFrame).css("left")) );
+		                        break;
+		                    case 39:
+		                        $(videoFrame).css("left", parseInt($(videoFrame).css("left")) + 1);
+		                        //$("input[name='left']").val(parseInt($(videoFrame).css("left")) );
+		                        break;
+		                    case 38:
+		                        $(videoFrame).css("top", parseInt($(videoFrame).css("top")) - 1);
+		                        //$("input[name='top']").val(parseInt($(videoFrame).css("top")) );
+		                        break;
+		                    case 40:
+		                        $(videoFrame).css("top", parseInt($(videoFrame).css("top")) + 1);
+		                        //$("input[name='top']").val(parseInt($(videoFrame).css("top")) );
+		                        break;
+		                    default :
+
+		                }
+
+		            });
+		            
+		        }
+
+
+
+		},
+
+                
+
+         }//End of video player handle
+
+
+
+	</script>
+
+
+
+	<script>
+
+		function getFileType(filePath) {
+			fileName = filePath.split("/").pop();
+			fileExt = fileName.split(".").pop();
+
+			imgExts = ["jpg", "jpeg", "gif", "tif", "png"];
+			htmlExts = ["html", "shtml", "swiffy"];
+			flashExts = ["swf", "flv"];
+			if (imgExts.indexOf(fileExt) != -1) {
+				return "image";
+			}else if (htmlExts.indexOf(fileExt) != -1) {
+				return "html";
+			}else if (flashExts.indexOf(fileExt) != -1) {
+				return "flash";
+			}
+			return null
+		}
+
+		function isValidCode(code) {
+			return code.replace("\s", "").length() > 0;
+		}
+
+		function countChar(counted_ch, str) {
+			var count = 0;
+			for (i = 0; i < str.length; i++) {
+				ch = str[i];
+				if (ch == counted_ch) {
+					count ++;
+				}
+			}
+			return count;
+		}
+
+
+
+	</script>
+
+    <script src="./jquery.min.js.download"></script>
+    <script src="./jquery-ui.min.js.download"></script>
+
+    <script>
+        var billboardSizes = /(\d+)\s*x\s*(\d+)/.exec("300x250");
+        if("300x250" == "300x600" && !beta) {
+                $("[name^='"+window.name+"']", window.parent.document).css({"height":"250", "width":"300"}); 
+                $("[name^='"+window.name+"']", window.parent.document).parent().css({"height":"250", "width":"300"}).css("margin","auto");   
+                $("[name^='"+window.name+"']", window.parent.document).closest("#wrapper-pub").css({"height":"auto", "width":"auto"}); 
+                $("[name^='"+window.name+"']", window.parent.document).parent().parent().css({"height":"auto", "width":"auto"});
+        }
+    </script>
+
+	
+
+	
+
+		<div id="bigbox"></div>
+	    <div id="background" style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px; background-repeat: no-repeat; cursor: pointer; background-image: url(&quot;&quot;);"></div>
+	    
+		<div id="bigbox-pubframe" style="background-color: black; cursor: pointer; width: 300px; height: 250px;"><div id="video-frame" style="width: 300px; height: 168px; top: 41px; left: 0px;"><video id="video1" poster="" preload="auto" muted=""><source type="video/mp4" src="https://medias-pub.radio-canada.ca/SNQ_2018_professionnels_final_v01_800.mp4"></video><div id="show-play-button" style="margin-top: -25px; margin-left: -45px;"></div><div id="play-button" class="" style="margin-top: -25px; margin-left: -45px; font-size: 37px;"></div><div id="nav-bar" style=""><div id="know-more">EN SAVOIR PLUS</div></div><div id="mute-button" style="font-size: 15px;"></div></div><div id="aside-nav-bar">EN SAVOIR PLUS</div></div>
+
+		<script>
+            if("yes" == "yes") {
+            $( "#background" ).css("cursor", "pointer");
+            $( "#background" ).on("click", function(e){ 
+             					                                  if( e.currentTarget.id == "background") {
+             								              window.videoPlayer.isLoaded() ? window.videoPlayer.redirectToClickthroughUrl(e)  : window.open('https://adclick.g.doubleclick.net/pcs/click?xai=AKAOjsso2t1TxBkPEAWNAAVhyC1Oev-Lkdx-osx0AB1D1Rtd6LVknCixlKz_AmSNTXBwy1ONV1Wbi493oGlBZ1J5z1SYO_Bf86z5ZbPhCWu0GGSAycSwK-JiPEwqKi4OwT_O56T6-nH5wbDmV9RM35s-iCHW0IniW0KEFo27uBygqDWtw6aR4rjyoCbA9vh4pXYcSEQSVnf5wgd1CdFMvTtvYuqoswFeVAEwBCShfM7DF4No4_201HULaUjEeKmk95pRATw9rQ&sig=Cg0ArKJSzHx0GVeSFsqTEAE&urlfix=1&adurl=https://semainenumerique.com/', '_blank');
+             									    }
+             									});
+            }
+
+            var bigboxSize = /(\d+)x(\d+)/.exec("300x250");
+            var bigboxWidth = parseInt(bigboxSize[1]);
+            var bigboxHeight = parseInt(bigboxSize[2]);
+
+            $bigboxPubFrame = $( "#bigbox-pubframe" );
+            $bigboxPubFrame.width(bigboxWidth);
+            $bigboxPubFrame.height(bigboxHeight);
+ 
+			var parentNode = $bigboxPubFrame;
+			var startTrackingPixel = ""
+			var middleTrackingTag = "";
+			var endTrackingPixel = ""
+			var isDisplayFirstframeOnending = ("" != "");
+			var clickUrl = "https://adclick.g.doubleclick.net/pcs/click?xai=AKAOjsso2t1TxBkPEAWNAAVhyC1Oev-Lkdx-osx0AB1D1Rtd6LVknCixlKz_AmSNTXBwy1ONV1Wbi493oGlBZ1J5z1SYO_Bf86z5ZbPhCWu0GGSAycSwK-JiPEwqKi4OwT_O56T6-nH5wbDmV9RM35s-iCHW0IniW0KEFo27uBygqDWtw6aR4rjyoCbA9vh4pXYcSEQSVnf5wgd1CdFMvTtvYuqoswFeVAEwBCShfM7DF4No4_201HULaUjEeKmk95pRATw9rQ&sig=Cg0ArKJSzHx0GVeSFsqTEAE&urlfix=1&adurl=https://semainenumerique.com/";
+			var videoFirstFrameImage = "";
+			var videoUrl = "https://medias-pub.radio-canada.ca/SNQ_2018_professionnels_final_v01_800.mp4";
+
+			var isClickBannerForTouch = true;
+
+			var width = 300;
+			var height = parseInt(width * (9/16));
+			var top_pos = 41;
+			var left = 0;
+
+
+			$( "#background" ).css('background-image', 'url("")');
+
+			var bgCode = $( "#background" ).html();
+
+			var isPreviewMode = (window.location.href.indexOf("https://partner.googleadservices.com/") !== -1);
+
+                        var videoPlayerConfiguration = {
+                            width: width,
+                            height: height,
+                            topPos: top_pos,
+                            left: left,
+                            startTrackingPixel: startTrackingPixel,
+                            middleTrackingTag: middleTrackingTag,
+                            endTrackingPixel: endTrackingPixel,
+                            isDisplayFirstframeOnending: isDisplayFirstframeOnending,
+                            clickUrl: clickUrl,
+                            videoFirstFrameImage: videoFirstFrameImage,
+                            videoUrl: videoUrl,
+                            isClickBannerForTouch: isClickBannerForTouch,
+                            isPreviewMode: isPreviewMode,
+                        };
+
+			window.videoPlayer.load(parentNode, videoPlayerConfiguration);
+	                
+                        if("Yes" == "No") {
+                            var iFrameName = window.name;
+                            var subString = "google_ads_iframe_";
+                            var $currentIframe;
+
+                            if (iFrameName.indexOf(subString) !== -1) {
+                                $currentIframe = parent.document.getElementById(iFrameName);
+                            }
+                            else {
+                                iFrameName = subString + iFrameName;
+                                $currentIframe = parent.document.getElementById(iFrameName);
+                            }
+
+                           var $srcPubZoneDomElement = window.parent.jQuery($currentIframe).closest('.srcPubZone');
+                           $srcPubZoneDomElement.addClass("no-refresh");
+                        }
+
+		</script>
+
+		<img src="http://ici.radio-canada.ca/">
+	
+
+
+<script src="./osd_listener.js.download"></script><script type="text/javascript">osdlfm(-1,'','BbElVNYS1WpjEO5bYpgOX5YCoAwAAAAAQATgByAEJwAIC4AIA4AQBoAYf0ggFCIABEAE','',2250869084,true,'bcn\u003d1\u0026ud\u003d1\u0026opac\u0026la\u003d0\u0026alp\u003dxai\u0026alh\u003d855555266\u0026',3,'CAASEuRoLi-cYcDIC-QVUq5Cx1kg2w','https://pagead2.googlesyndication.com/pcs/activeview?xai\u003dAKAOjsusgVwqZzhdPnbtv2giASTbh_H19xS0iUQpkOwem9cI63jdy9zqu774Cqnt423unPhXGy3_jbuhOK3FH9jWOiwJRPdMDjPM9wo\u0026sig\u003dCg0ArKJSzAptEvjfu5C6EAE','');</script><script>if (window.top && window.top.postMessage) {window.top.postMessage('{"googMsgType":"adpnt"}','*');}</script><img src="./camp_int=Advertiser_RC-${4502818465}^Campaign_RC-${2222489420}^impressions" height="1" width="1" style="display: none;">
+<img src="./camp_int=Advertiser_RC-${4502818465}^Campaign_RC-${2222489420}^clicks" height="1" width="1" style="display: none;">
+<img src="./camp_int=Advertiser_RC-${4502818465}^Campaign_RC-${2222489420}^conversions" height="1" width="1" style="display: none;">
+</body></html>
