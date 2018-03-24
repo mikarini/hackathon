@@ -1,3 +1,5 @@
+linkCss();
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {  
 	parseJason();
@@ -13,6 +15,17 @@ function parseJason()
 	xml.onreadystatechange = getData;
 	xml.open("GET","http://13.72.105.141/feed",true);
 	xml.send();
+}
+
+function linkCss()
+{
+	var head  = document.getElementsByTagName('head')[0];
+		var stylesheet  = document.createElement('link');
+		stylesheet.rel  = 'stylesheet';
+		stylesheet.type = 'text/css';
+		stylesheet.href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+		head.appendChild(stylesheet);
+	
 }
 
 function getData()
@@ -65,6 +78,8 @@ function fillInCards()
 			img.setAttribute("class","card-image-top");
 			img.setAttribute("src",""+ anArticle.image.href);
 			img.setAttribute("alt","Image for " + anArticle.title);
+			img.setAttribute("width", "300");
+			img.setAttribute("height", "300");
 			card.appendChild(img);
 			
 			var cardBody = document.createElement("DIV");
