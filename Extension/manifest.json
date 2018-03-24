@@ -1,0 +1,12 @@
+{
+  "name": "Barre de Recherche Radio-Canada",
+  "version": "1.0",
+  "description": "Ajoute une barre de recherche sur le site de Radio-Canada",
+  "content_scripts": [
+    {
+      "matches": ["http://ici.radio-canada.ca/*"],
+      "js": ["script.js"]
+    }
+  ],
+  "manifest_version": 2
+}
