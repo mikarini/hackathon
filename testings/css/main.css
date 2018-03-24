@@ -3,7 +3,7 @@
 	width: 10px;
 	border: 1px solid black;
 	padding: 5px;
-	margin: 15px;
+	margin: 10px;
 }
 body
 {
@@ -18,6 +18,6 @@ body
 	position: center;
 	background-color:grey;
 	margin: auto;
-	padding:15px;
+	padding:10px;
 }
 
