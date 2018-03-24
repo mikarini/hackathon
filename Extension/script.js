@@ -33,6 +33,7 @@ function getData()
 {
 	if(xml.readyState == XMLHttpRequest.DONE && xml.status == 200)
 	{
+		console.log(xml.responseText);
 		jsonArray = JSON.parse(xml.responseText);
 		fillInCards();
 	}
@@ -66,15 +67,8 @@ function fillInCards()
 			
 			var img = document.createElement("IMG");
 			img.setAttribute("class","card-image-top");
-<<<<<<< HEAD
-			img.setAttribute("src",""+ anArticle.image.href);
-			img.setAttribute("alt","Image for " + anArticle.title);
-			img.setAttribute("width", "300");
-			img.setAttribute("height", "300");
-=======
 			img.setAttribute("src",""+ element.image.href);
 			img.setAttribute("alt","Image for " + element.title);
->>>>>>> 55afa3a3c3ea33d9d5247d72beab2bfacc0fb559
 			card.appendChild(img);
 			
 			var cardBody = document.createElement("DIV");
@@ -90,6 +84,15 @@ function fillInCards()
 			description.setAttribute("class","card-text");
 			description.appendChild(document.createTextNode(element.description));
 			cardBody.appendChild(description);
+			
+			var rating = document.createElement("P");
+			rating.setAttribute("class","card-text");
+			if(element.rating < 5)
+				rating.setAttribute("style", "color: #d24b4b");
+			else
+				rating.setAttribute("style", "color: #4da00d");
+			rating.appendChild(document.createTextNode(element.rating));
+			cardBody.appendChild(rating);
 			
 			var btn = document.createElement("A");
 			btn.setAttribute("href","#");
