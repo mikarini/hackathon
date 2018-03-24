@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-	document.getElementById("container-anchor").innerHTML = request.query;
+  function(request, sender, sendResponse) {  
+	displayResult(request.query);
     sendResponse();
 });
 document.onload = startSearch();
@@ -9,9 +9,6 @@ function startSearch(){
 	linkCss();
 	var input = document.createElement("INPUT");
 	input.setAttribute("style", "display:block;");
-	document.getElementsByClassName("header-audio-controller").appendChild(input);
-	
-	document.getElementsByClassName('hidden-tag')[0].setAttribute("aria-hidden", "false");
 	
 }
 
@@ -52,7 +49,7 @@ function getData()
 	}
 	
 }
-function displayResult()
+function displayResult(query)
 {
 	document.getElementById("container-anchor").innerHTML = "";
 	for (var j = 0; j < 2 ; j++)
@@ -81,7 +78,7 @@ function displayResult()
 			
 			var img = document.createElement("IMG");
 			img.setAttribute("class","card-image-top");
-			img.setAttribute("src","images/placeholder-images.jpg");
+			img.setAttribute("src","https://www.thetimes.co.uk/imageserver/image/methode%2Ftimes%2Fprodmigration%2Fweb%2Fbin%2F5ca5cbde-984c-328c-97f5-3805b28ebb87.jpg?crop=1500%2C1000%2C0%2C0&resize=685");
 			img.setAttribute("alt","Image title");
 			card.appendChild(img);
 			
@@ -91,7 +88,7 @@ function displayResult()
 			
 			var title = document.createElement("H5");
 			title.setAttribute("class","card-title");
-			title.appendChild(document.createTextNode("Will need more info"));
+			title.appendChild(document.createTextNode(query));
 			cardBody.appendChild(title);
 			
 			var description = document.createElement("P");
