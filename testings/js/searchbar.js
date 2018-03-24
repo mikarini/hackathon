@@ -4,21 +4,21 @@ var xml;
 function parseJason()
 {
 	xml = new XMLHttpRequest();
-	xml.open("GET","http://13.72.105.141",true);
 	xml.onreadystatechange = getData;
+	xml.open("POST","http://13.72.105.141",true);
 	xml.send();
 }
 
 function getData()
 {
-	if(xml.readyState === XMLHttpRequest.DONE && xml.status === 200)
+	console.log(xml);
+	if(xml.readyState == XMLHttpRequest.DONE || xml.status == 200)
 	{
-		console.log(JSON.parse(xml.responseText));
+		//console.log(JSON.parse(xml.responseText));
 		fillInCards();
 	}
 	else{
 		console.log("There was a problem with connection");
-		fillInCards();
 	}
 	
 }
