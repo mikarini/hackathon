@@ -2,4 +2,22 @@
 {
 	width: 10px;
 	border: 1px solid black;
+	padding: 5px;
+	margin: 15px;
 }
+body
+{
+	padding: 25px;
+	
+}
+
+#searchDisplay
+{
+	border: 3px solid red;
+	width: 60%;
+	position: center;
+	background-color:grey;
+	margin: auto;
+	padding:15px;
+}
+
