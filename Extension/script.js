@@ -1,5 +1,5 @@
-document.onload = startSearch();
-
-function startSearch(){
-	document.getElementById("container-anchor").innerHTML  = "";
-}
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+	document.getElementById("container-anchor").innerHTML = request.query;
+    sendResponse();
+});

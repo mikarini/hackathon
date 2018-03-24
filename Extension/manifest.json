@@ -2,11 +2,14 @@
   "name": "Barre de Recherche Radio-Canada",
   "version": "1.0",
   "description": "Ajoute une barre de recherche sur le site de Radio-Canada",
-  "content_scripts": [
-    {
-      "matches": ["http://ici.radio-canada.ca/*"],
-      "js": ["script.js"]
-    }
+  "browser_action": {
+      "default_popup": "popup.html",
+	  "default_title": "Une barre de recherche pour Radio-Canada"
+   },
+   "content_scripts": [ {
+    "matches": ["http://ici.radio-canada.ca/*"],
+    "js": ["script.js"]
+	}
   ],
   "manifest_version": 2
 }
