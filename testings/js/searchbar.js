@@ -1,9 +1,10 @@
 //var jasonArray;
+var xml;
 
 function parseJason()
 {
-	var xml = new XMLHttpRequest();
-	xml.open("GET","https://api.radio-canada.ca/",true);
+	xml = new XMLHttpRequest();
+	xml.open("GET","http://13.72.105.141",true);
 	xml.onreadystatechange = getData;
 	xml.send();
 }
@@ -17,6 +18,7 @@ function getData()
 	}
 	else{
 		console.log("There was a problem with connection");
+		fillInCards();
 	}
 	
 }
@@ -25,10 +27,19 @@ function fillInCards()
 {	
 	for (var j = 0; j < 2 ; j++)
 	{
+		var section = document.createElement("SECTION");
+		section.setAttribute("id","section");
+		document.getElementById("searchDisplay").appendChild(section);
+		var heading = document.createElement("H3");
+		heading.appendChild(document.createTextNode("Catégorie: Business"));
+		section.appendChild(heading);
 		
-		var cardDeck = document.createElement("DIV");
+		var cardDeck = document.createElement("SECTION");
 		cardDeck.setAttribute("class", "card-deck");
-		document.getElementById("searchDisplay").appendChild(cardDeck);
+		cardDeck.setAttribute("title","Category: Commerce.");
+		section.appendChild(cardDeck);
+
+		
 		for(var i = 0; i < 3 ; i++)
 		{
 			var card = document.createElement("article");
@@ -36,10 +47,10 @@ function fillInCards()
 			card.setAttribute("id", "card");
 			cardDeck.appendChild(card);
 			
-			var img = document.createElement("image");
+			var img = document.createElement("IMG");
 			img.setAttribute("class","card-image-top");
 			img.setAttribute("src","images/placeholder-images.jpg");
-			img.setAttribute("alt","Card image cap");
+			img.setAttribute("alt","Image title");
 			card.appendChild(img);
 			
 			var cardBody = document.createElement("DIV");

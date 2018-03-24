@@ -1,6 +1,6 @@
 #card
 {
-	width: 10px;
+	
 	border: 1px solid black;
 	padding: 5px;
 	margin: 10px;
@@ -14,10 +14,16 @@ body
 #searchDisplay
 {
 	border: 3px solid red;
-	width: 60%;
+	width: 70%;
+	height:30%;
 	position: center;
 	background-color:grey;
 	margin: auto;
 	padding:10px;
+}
+
+#section h3
+{
+	color: white;
 }
 
