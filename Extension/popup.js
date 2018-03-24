@@ -1,7 +1,130 @@
-document.getElementById("searchBar").addEventListener("keydown", function(){
+/*document.getElementById("searchBar").addEventListener("keydown", function(){
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 	chrome.tabs.sendMessage(tabs[0].id, {query: document.getElementById("searchBar").value}, function(response) {
     //
   });
 });
 });
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {  
+	parseJason();
+    sendResponse();
+});*/
+linkCss();
+var input = document.getElementById("input");
+input.addEventListener("keydown", function()
+{
+	parseJason();
+});
+
+var jsonArray;
+var xml;
+var sections;
+
+function parseJason()
+{
+	xml = new XMLHttpRequest();
+	xml.onreadystatechange = getData;
+	xml.open("GET","http://13.72.105.141/search/term/" + input.value,true);
+	xml.send();
+}
+
+function linkCss()
+{
+	var head  = document.getElementsByTagName('head')[0];
+		var stylesheet  = document.createElement('link');
+		stylesheet.rel  = 'stylesheet';
+		stylesheet.type = 'text/css';
+		stylesheet.href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+		head.appendChild(stylesheet);
+	
+}
+
+function getData()
+{
+	if(xml.readyState == XMLHttpRequest.DONE && xml.status == 200)
+	{
+		console.log(xml.responseText);
+		jsonArray = JSON.parse(xml.responseText);
+		fillInCards();
+	}
+	else{
+		console.log("There was a problem with connection");
+	}
+	
+}
+
+function fillInCards()
+{	
+	document.getElementById("searchDisplay").innerHTML="";
+	sections = [];
+	
+	jsonArray.forEach(function(element)
+	{
+		var category = element.category;
+		if(!(category in sections))
+		{
+			createSection(category);
+			console.log("IM HERE");
+		}
+
+			var card = document.createElement("article");
+			card.setAttribute("id", "card" + element.video_id);
+			
+			var deck = document.getElementById("deck"+category);
+			console.log(deck);
+			deck.appendChild(card);
+			
+			var img = document.createElement("IMG");
+			img.setAttribute("class","card-image-top");
+			img.setAttribute("height","100");
+			img.setAttribute("width","150");
+			img.setAttribute("src",""+ element.image.href);
+			img.setAttribute("alt","Image for " + element.title);
+			card.appendChild(img);
+			
+			var title = document.createElement("H5");
+			title.setAttribute("class","card-title");
+			title.appendChild(document.createTextNode(element.title));
+			card.appendChild(title);
+			
+			var description = document.createElement("P");
+			description.setAttribute("class","card-text");
+			description.appendChild(document.createTextNode(element.description));
+			card.appendChild(description);
+			
+			var rating = document.createElement("P");
+			rating.setAttribute("class","card-text");
+			if(element.rating < 5)
+				rating.setAttribute("style", "color: #d24b4b");
+			else
+				rating.setAttribute("style", "color: #4da00d");
+			rating.appendChild(document.createTextNode(element.rating));
+			card.appendChild(rating);
+			
+			var btn = document.createElement("A");
+			btn.setAttribute("href","#");
+			btn.setAttribute("class","btn btn-primary");
+			btn.setAttribute("title","Read more about this article");
+			btn.appendChild(document.createTextNode("Read more..."));
+			card.appendChild(btn);
+		
+	});
+	
+}
+function createSection(name)
+{
+	    var section = document.createElement("SECTION");
+		document.getElementById("searchDisplay").appendChild(section);
+		var heading = document.createElement("H3");
+		heading.appendChild(document.createTextNode(name));
+		section.appendChild(heading);
+		var cardDeck = document.createElement("SECTION");
+			cardDeck.setAttribute("id", "deck"+name);
+			cardDeck.setAttribute("title","Categorie : " + name);
+			section.appendChild(cardDeck);
+		
+		sections[name] = section;
+		
+		return section;
+}

@@ -58,7 +58,8 @@ function fillInCards()
 		}
 
 			var card = document.createElement("article");
-			card.setAttribute("class", "card");
+			card.setAttribute("style","width: 30%; border: 2px solid black; padding: 5px; margin: 10px; border-radius: 25px; align:center;");
+			card.setAttribute("class", "content-col-text");
 			card.setAttribute("id", element.video_id);
 			
 			var deck = document.getElementById("deck"+category);
@@ -66,6 +67,8 @@ function fillInCards()
 			deck.appendChild(card);
 			
 			var img = document.createElement("IMG");
+			img.setAttribute("height","300");
+			img.setAttribute("width","300");
 			img.setAttribute("class","card-image-top");
 			img.setAttribute("src",""+ element.image.href);
 			img.setAttribute("alt","Image for " + element.title);

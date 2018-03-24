@@ -1,0 +1,31 @@
+body
+{
+	width: 600px;
+}
+
+section
+{
+	border-bottom: 5px solid black;
+}
+[id^=card]
+{
+	 height: 100px;
+	 position:center;
+	 width: 95%;
+}
+
+[id^=card] img
+{
+	float: left;
+	height: 100px;
+	width: 30%;
+	
+}
+
+[id^=card] h5
+{
+	float: top right;
+	color: red;
+}
+
+
