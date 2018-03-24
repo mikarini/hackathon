@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener(
 
 var jsonArray;
 var xml;
+var sections;
 
 function parseJason()
 {
@@ -32,7 +33,6 @@ function getData()
 {
 	if(xml.readyState == XMLHttpRequest.DONE && xml.status == 200)
 	{
-		console.log(JSON.parse(xml.responseText)[0]);
 		jsonArray = JSON.parse(xml.responseText);
 		fillInCards();
 	}
@@ -44,42 +44,37 @@ function getData()
 
 function fillInCards()
 {	
+	document.getElementById("container-anchor").innerHTML="";
+	sections = [];
 	
-	document.getElementById("container-anchor").innerHTML = "";
-	for (var j = 0; j < 2 ; j++)
+	jsonArray.forEach(function(element)
 	{
-		if(j == 0)
-			var category = jsonArray[0].category;
-		else
-			var category = jsonArray[3].category;
-		var section = document.createElement("SECTION");
-		section.setAttribute("id","section");
-		document.getElementById("container-anchor").appendChild(section);
-		var heading = document.createElement("H3");
-		heading.appendChild(document.createTextNode(category));
-		section.appendChild(heading);
-		
-		var cardDeck = document.createElement("SECTION");
-		cardDeck.setAttribute("class", "card-deck");
-		cardDeck.setAttribute("title","Categorie : " + category);
-		section.appendChild(cardDeck);
-
-		
-		for(var i = 0; i < 3 ; i++)
+		var category = element.category;
+		if(!(category in sections))
 		{
-			var anArticle = jsonArray[i];
-			
+			createSection(category);
+			console.log("IM HERE");
+		}
+
 			var card = document.createElement("article");
 			card.setAttribute("class", "card");
-			card.setAttribute("id", anArticle.video_id);
-			cardDeck.appendChild(card);
+			card.setAttribute("id", element.video_id);
+			
+			var deck = document.getElementById("deck"+category);
+			console.log(deck);
+			deck.appendChild(card);
 			
 			var img = document.createElement("IMG");
 			img.setAttribute("class","card-image-top");
+<<<<<<< HEAD
 			img.setAttribute("src",""+ anArticle.image.href);
 			img.setAttribute("alt","Image for " + anArticle.title);
 			img.setAttribute("width", "300");
 			img.setAttribute("height", "300");
+=======
+			img.setAttribute("src",""+ element.image.href);
+			img.setAttribute("alt","Image for " + element.title);
+>>>>>>> 55afa3a3c3ea33d9d5247d72beab2bfacc0fb559
 			card.appendChild(img);
 			
 			var cardBody = document.createElement("DIV");
@@ -88,12 +83,12 @@ function fillInCards()
 			
 			var title = document.createElement("H5");
 			title.setAttribute("class","card-title");
-			title.appendChild(document.createTextNode(anArticle.title));
+			title.appendChild(document.createTextNode(element.title));
 			cardBody.appendChild(title);
 			
 			var description = document.createElement("P");
 			description.setAttribute("class","card-text");
-			description.appendChild(document.createTextNode(anArticle.description));
+			description.appendChild(document.createTextNode(element.description));
 			cardBody.appendChild(description);
 			
 			var btn = document.createElement("A");
@@ -102,8 +97,24 @@ function fillInCards()
 			btn.setAttribute("title","Read more about this article");
 			btn.appendChild(document.createTextNode("Read more..."));
 			cardBody.appendChild(btn);
-		}
 		
-	}
+	});
 	
+}
+function createSection(name)
+{
+	    var section = document.createElement("SECTION");
+		document.getElementById("container-anchor").appendChild(section);
+		var heading = document.createElement("H3");
+		heading.appendChild(document.createTextNode(name));
+		section.appendChild(heading);
+		var cardDeck = document.createElement("SECTION");
+			cardDeck.setAttribute("class", "card-deck");
+			cardDeck.setAttribute("id", "deck"+name);
+			cardDeck.setAttribute("title","Categorie : " + name);
+			section.appendChild(cardDeck);
+		
+		sections[name] = section;
+		
+		return section;
 }
