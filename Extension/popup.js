@@ -83,54 +83,71 @@ function fillInCards()
 			
 			var img = document.createElement("IMG");
 			img.setAttribute("class","card-image-top");
-			img.setAttribute("height","100");
-			img.setAttribute("width","150");
-			img.setAttribute("src",""+ element.image.href);
-			img.setAttribute("alt","Image for " + element.title);
+			img.setAttribute("src",""+ element.image);
+			img.setAttribute("alt",element.title);
 			card.appendChild(img);
+			
+			
 			
 			var title = document.createElement("H5");
 			title.setAttribute("class","card-title");
 			title.appendChild(document.createTextNode(element.title));
 			card.appendChild(title);
 			
-			/*var description = document.createElement("P");
+			var description = document.createElement("P");
 			description.setAttribute("class","card-text");
 			description.appendChild(document.createTextNode(element.description));
-			card.appendChild(description);*/
-			card.innerHTML += element.description;
-			
+			card.appendChild(description);
+			//card.innerHTML += element.description;
 			var rating = document.createElement("h6");
 			rating.setAttribute("id","emotionBar");
 			emotionSetter(element.rating, rating);
-			//rating.appendChild(document.createTextNode("◙◙◙◙◙◙◙◙◙◙"));
-			
 			card.appendChild(rating);
 			
+			var tags = element.tags;
+			var tag = document.createElement("P");
+			tag.setAttribute("id","tags");
+			apendTags(tags,tag);
+			card.appendChild(tag);
+			
 			var btn = document.createElement("A");
-			btn.setAttribute("href","#");
+			btn.setAttribute("href",element.link);
 			btn.setAttribute("class","btn btn-primary");
-			btn.setAttribute("title","Read more about this article");
-			btn.appendChild(document.createTextNode("Read more..."));
+			btn.setAttribute("target","_blank");
+			btn.setAttribute("title","Lire plus par rapport a l'article");
+			btn.appendChild(document.createTextNode("Lire plus..."));
 			card.appendChild(btn);
 		
 	});
 	
+}
+function apendTags(array, parentNode)
+{
+	for(var i = 0; i < 4; i++)
+	{
+		var linkA = document.createElement("A");
+		linkA.appendChild(document.createTextNode("&#x23;"+array[i]));
+		linkA.setAttribute("title", "Lien pour twiter");
+		linkA.setAttribute("target","_blank");
+		linkA.setAttribute("href","https://twitter.com/hashtag/"+ array[i]);
+		
+		parentNode.appendChild(linkA);
+	}
 }
 
 function emotionSetter(rating, append)
 {
 	for(var i = 0 ; i<rating;i++)
 	{
-		var emotion = document.createElement("h6");
+		var emotion = document.createElement("h5");
 		emotion.setAttribute("style","color: #"+colors[i]);
 		emotion.appendChild(document.createTextNode("◙"));
 		append.appendChild(emotion);
 	}
 	for (var j=rating; j < 10; j++)
 	{
-		var emotion = document.createElement("h6");
-		emotion.setAttribute("style","color: #d1e1f9");
+		var emotion = document.createElement("h5");
+		emotion.setAttribute("style","color: #d1e1f9; ");
 		emotion.appendChild(document.createTextNode("◙"));
 		append.appendChild(emotion);
 	}

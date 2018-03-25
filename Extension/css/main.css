@@ -1,11 +1,18 @@
+
+
+
+
 body
 {
-	width: 600px;
+	width: 700px;
 }
 *{
 background-color: #b3f0ff;}
-section{
-	
+#tags
+{
+	width: 30%;
+	display:block;
+	clear: left;
 }
 section h3
 {
@@ -16,7 +23,7 @@ form, input{background-color: white;}
 [id^=card]
 {
 	font-family: "Times New Roman", Times, serif;
-	 height: 120px;
+	 height: 180px;
 	 background-color:white;
 	 position:relative;
 	 width: 95%;
@@ -24,12 +31,12 @@ form, input{background-color: white;}
 	 margin-top: 15px;
 	 margin-left:10px;
 	 border: 1px solid silver;
+	 display: block;
 }
 
 [id^=card] img
 {
 	float: left;
-	height: 118px;
 	width: 30%;
 	margin-right:20px;
 }
@@ -41,13 +48,26 @@ form, input{background-color: white;}
 	text-transform: uppercase;
 	background-color: white;
 	font-weight: bold;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	position: relative;
+	height: 2.0em;
 }
 #emotionBar h6
 {
-	font-size: 25px;
+	clear:left;
+	position:absolute;
+	bottom:2px;
+	left: 3px;
+
+}
+#emotionBar h5
+{
 	float:left;
+	font-size: 20px;
 	background-color: white;
-	
+	margin:0px;
+	padding:0px;
 }
 .card-text{
 	background-color: white;
@@ -62,7 +82,14 @@ form, input{background-color: white;}
 	width:40%;
 	float:left;
 }
-
+article p{
+	background-color: white;
+	font-size: 15px;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	position: relative;
+	height: 2.8em;
+}
 #sliderContainer{
 	width: 50%;
 	float: left;
