@@ -6,10 +6,5 @@
       "default_popup": "popup.html",
 	  "default_title": "Une barre de recherche pour Radio-Canada"
    },
-   "content_scripts": [ {
-    "matches": ["http://ici.radio-canada.ca/*"],
-    "js": ["script.js"]
-	}
-  ],
   "manifest_version": 2
 }

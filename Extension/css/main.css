@@ -2,30 +2,98 @@ body
 {
 	width: 600px;
 }
-
-section
+*{
+background-color: #b3f0ff;}
+section h3
 {
-	border-bottom: 5px solid black;
+	border-bottom: 2px solid black;
+	
 }
+form, input{background-color: white;}
 [id^=card]
 {
-	 height: 100px;
-	 position:center;
+	font-family: "Times New Roman", Times, serif;
+	 height: 120px;
+	 background-color:white;
+	 position:relative;
 	 width: 95%;
+	 float: left;
+	 margin-top: 15px;
+	 margin-left:10px;
+	 border: 1px solid silver;
 }
 
 [id^=card] img
 {
 	float: left;
-	height: 100px;
+	height: 118px;
 	width: 30%;
-	
+	margin-right:20px;
 }
 
 [id^=card] h5
 {
-	float: top right;
-	color: red;
+	margin: 5px;
+	color: grey;
+	text-transform: uppercase;
+	background-color: white;
+	font-weight: bold;
 }
+#emotionBar h6
+{
+	font-size: 25px;
+	float:left;
+	background-color: white;
+	
+}
+.card-text{
+	background-color: white;
+}
+[id^=card] a
+{
+	position: absolute;
+	right: 10px;
+	bottom:2px;
+}
+#input{
+	width:30%;
+	float:left;
+}
+
+#sliderContainer{
+	width: 60%
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+	float:left;
+    height: 5px;
+    border-radius: 5px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 1;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%; 
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
 
 

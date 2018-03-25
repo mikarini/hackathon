@@ -12,15 +12,14 @@ chrome.runtime.onMessage.addListener(
 });*/
 linkCss();
 var input = document.getElementById("input");
-input.addEventListener("keydown", function()
+input.addEventListener("keyup", function()
 {
 	parseJason();
 });
-
 var jsonArray;
 var xml;
 var sections;
-
+var colors = ["ff0000","ff4000","ff8000","ffbf00","ffff00","bfff00","80ff00","40ff00","00ff00","00ff40"];
 function parseJason()
 {
 	xml = new XMLHttpRequest();
@@ -93,13 +92,11 @@ function fillInCards()
 			description.appendChild(document.createTextNode(element.description));
 			card.appendChild(description);
 			
-			var rating = document.createElement("P");
-			rating.setAttribute("class","card-text");
-			if(element.rating < 5)
-				rating.setAttribute("style", "color: #d24b4b");
-			else
-				rating.setAttribute("style", "color: #4da00d");
-			rating.appendChild(document.createTextNode(element.rating));
+			var rating = document.createElement("h6");
+			rating.setAttribute("id","emotionBar");
+			emotionSetter(element.rating, rating);
+			//rating.appendChild(document.createTextNode("◙◙◙◙◙◙◙◙◙◙"));
+			
 			card.appendChild(rating);
 			
 			var btn = document.createElement("A");
@@ -110,6 +107,25 @@ function fillInCards()
 			card.appendChild(btn);
 		
 	});
+	
+}
+
+function emotionSetter(rating, append)
+{
+	for(var i = 0 ; i<rating;i++)
+	{
+		var emotion = document.createElement("h6");
+		emotion.setAttribute("style","color: #"+colors[i]);
+		emotion.appendChild(document.createTextNode("◙"));
+		append.appendChild(emotion);
+	}
+	for (var j=rating; j < 10; j++)
+	{
+		var emotion = document.createElement("h6");
+		emotion.setAttribute("style","color: #d1e1f9");
+		emotion.appendChild(document.createTextNode("◙"));
+		append.appendChild(emotion);
+	}
 	
 }
 function createSection(name)
