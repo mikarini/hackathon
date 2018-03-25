@@ -10,9 +10,16 @@ body
 background-color: #b3f0ff;}
 #tags
 {
-	width: 30%;
+	background-color: white;
+	width: 80%;
+	height: 1.4em;
 	display:block;
 	clear: left;
+	float:right;
+}
+#tags a{
+	float:left;
+	
 }
 section h3
 {
@@ -68,11 +75,12 @@ form, input{background-color: white;}
 	background-color: white;
 	margin:0px;
 	padding:0px;
+	height: 18px;
 }
 .card-text{
 	background-color: white;
 }
-[id^=card] a
+#readmore
 {
 	position: absolute;
 	right: 10px;

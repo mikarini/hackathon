@@ -97,26 +97,31 @@ function fillInCards()
 			var description = document.createElement("P");
 			description.setAttribute("class","card-text");
 			description.appendChild(document.createTextNode(element.description));
+			
 			card.appendChild(description);
 			//card.innerHTML += element.description;
+			
+			var tags = element.tags;
+			var tag = document.createElement("DIV");
+			tag.setAttribute("id","tags");
+			apendTags(tags,tag);
+			card.appendChild(tag);
+			
 			var rating = document.createElement("h6");
 			rating.setAttribute("id","emotionBar");
 			emotionSetter(element.rating, rating);
 			card.appendChild(rating);
 			
-			var tags = element.tags;
-			var tag = document.createElement("P");
-			tag.setAttribute("id","tags");
-			apendTags(tags,tag);
-			card.appendChild(tag);
-			
 			var btn = document.createElement("A");
 			btn.setAttribute("href",element.link);
 			btn.setAttribute("class","btn btn-primary");
+			btn.setAttribute("id","readmore");
 			btn.setAttribute("target","_blank");
 			btn.setAttribute("title","Lire plus par rapport a l'article");
 			btn.appendChild(document.createTextNode("Lire plus..."));
 			card.appendChild(btn);
+			
+		
 		
 	});
 	
@@ -126,7 +131,7 @@ function apendTags(array, parentNode)
 	for(var i = 0; i < 4; i++)
 	{
 		var linkA = document.createElement("A");
-		linkA.appendChild(document.createTextNode("&#x23;"+array[i]));
+		linkA.appendChild(document.createTextNode("#"+array[i]));
 		linkA.setAttribute("title", "Lien pour twiter");
 		linkA.setAttribute("target","_blank");
 		linkA.setAttribute("href","https://twitter.com/hashtag/"+ array[i]);
