@@ -4,6 +4,9 @@ body
 }
 *{
 background-color: #b3f0ff;}
+section{
+	
+}
 section h3
 {
 	border-bottom: 2px solid black;
@@ -56,12 +59,14 @@ form, input{background-color: white;}
 	bottom:2px;
 }
 #input{
-	width:30%;
+	width:40%;
 	float:left;
 }
 
 #sliderContainer{
-	width: 60%
+	width: 50%;
+	float: left;
+	margin-bottom: 15px;
 }
 
 .slider {
@@ -75,6 +80,7 @@ form, input{background-color: white;}
     opacity: 1;
     -webkit-transition: .2s;
     transition: opacity .2s;
+	margin: 10px;
 }
 
 .slider::-webkit-slider-thumb {

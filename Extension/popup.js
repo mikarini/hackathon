@@ -24,7 +24,8 @@ function parseJason()
 {
 	xml = new XMLHttpRequest();
 	xml.onreadystatechange = getData;
-	xml.open("GET","http://13.72.105.141/search/term/" + input.value,true);
+	xml.open("GET","http://13.72.105.141/search/rating/" + document.getElementById("rate").value + "/term/" + input.value,true);
+	//xml.open("GET","http://13.72.105.141/search/term/" + input.value,true);
 	xml.send();
 }
 
@@ -39,6 +40,12 @@ function linkCss()
 	
 }
 
+function returnValue()
+{
+	var retur = document.getElementById("rate");
+	retun.setAttribute("title", retur.value);
+	
+}
 function getData()
 {
 	if(xml.readyState == XMLHttpRequest.DONE && xml.status == 200)
@@ -87,10 +94,11 @@ function fillInCards()
 			title.appendChild(document.createTextNode(element.title));
 			card.appendChild(title);
 			
-			var description = document.createElement("P");
+			/*var description = document.createElement("P");
 			description.setAttribute("class","card-text");
 			description.appendChild(document.createTextNode(element.description));
-			card.appendChild(description);
+			card.appendChild(description);*/
+			card.innerHTML += element.description;
 			
 			var rating = document.createElement("h6");
 			rating.setAttribute("id","emotionBar");
